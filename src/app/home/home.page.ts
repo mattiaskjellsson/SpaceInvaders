@@ -15,6 +15,8 @@ const mobileCursors = {
   left: false,
   right: false
 };
+
+
 let fireButton;
 let mobileFireButton = false;
 let explosions;
@@ -27,6 +29,7 @@ let enemyBullets;
 let firingTimer = 0;
 let stateText;
 const livingEnemies = [];
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -171,13 +174,16 @@ export class HomePage {
       } else if (cursors.right.isDown || mobileCursors.right) {
         player.body.velocity.x = 200;
       }
+
       //  Firing?
       if (fireButton.isDown || mobileFireButton) {
         that.fireBullet();
       }
+
       if (game.time.now > firingTimer) {
         that.enemyFires();
       }
+
       //  Run collision
       game.physics.arcade.overlap(bullets, aliens, that.collisionHandler, null, this);
       game.physics.arcade.overlap(enemyBullets, player, that.enemyHitsPlayer, null, this);
