@@ -38,6 +38,19 @@ const livingEnemies = [];
 export class HomePage {
 
   constructor(private menuCtrl: MenuController) {
+    // const gameConfig = {
+    //   width: window.innerWidth,
+    //   height: window.innerHeight,
+    //   type: Phaser.AUTO,
+    //   parent: 'space-invaders',
+    //   title: 'Space invaders',
+    //   version: '0.1',
+    //   defaultPhysicsSystem: 'arcade',
+    //   inputTouch: true,
+    //   preload: that.preload, create: that.create, update: that.update, render: that.render
+    // };
+
+    // game = new Phaser.Game(gameConfig);
     game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'space-invaders',
       { preload: this.preload, create: this.create, update: this.update, render: this.render });
 
@@ -223,13 +236,16 @@ export class HomePage {
   enemyHitsPlayer(player, bullet) {
     bullet.kill();
     const live = lives.getFirstAlive();
+
     if (live) {
       live.kill();
     }
+
     //  And create an explosion :)
     const explosion = explosions.getFirstExists(false);
     explosion.reset(player.body.x, player.body.y);
     explosion.play('kaboom', 30, false, true);
+
     // When the player dies
     if (lives.countLiving() < 1) {
       player.kill();
